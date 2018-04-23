@@ -1,3 +1,4 @@
+#install tomcat8 and deploy sample war file in it
 ---
 - hosts: node
   become: yes
