@@ -1,0 +1,17 @@
+---
+- hosts: node
+  become: yes
+  become_user: root
+
+  tasks:
+  - name: Installs tomcat8
+    apt: pkg=tomcat8 state=present update_cache=true
+  - name: Download WAR to server
+    command: wget https://tomcat.apache.org/tomcat-7.0-doc/appdev/sample/sample.war -O /var/lib/tomcat8/webapps/sample.war
+    notify: 
+       - restart tomcat8
+
+  handlers:
+    - name: restart tomcat8
+      service: name=tomcat8 state=restarted
+

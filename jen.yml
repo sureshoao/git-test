@@ -1,0 +1,17 @@
+---
+- hosts: node
+  become: yes
+  become_user: root
+
+  tasks:
+  - name: Installs tomcat8
+    apt: pkg=tomcat8 state=present update_cache=true
+  - name: Download WAR to server
+    command: wget mirrors.jenkins.io/war-stable/latest/jenkins.war -O /var/lib/tomcat8/webapps/jenkins.war
+    notify: 
+       - restart tomcat8
+
+  handlers:
+    - name: restart tomcat8
+      service: name=tomcat8 state=restarted
+

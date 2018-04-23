@@ -1,0 +1,11 @@
+---
+  hosts: node
+  become: yes
+  become_user: root
+
+  tasks:
+
+  - name: ensure required packages are installed for Java 7
+    apt: name=$item state=latest update_cache=yes
+    with_items:
+      - python-software-properties

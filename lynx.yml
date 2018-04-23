@@ -1,0 +1,9 @@
+---
+- hosts: node
+  become: yes
+  become_user: root
+  tasks:
+  - name: install lynx
+    apt: pkg=lynx state=installed update_cache=true
+
+

@@ -1,0 +1,16 @@
+---
+- hosts: node
+  become: yes
+  become_user: root
+  tasks:
+    - name: Installs nginx web server
+      apt: pkg=nginx state=present update_cache=true
+      notify:
+        - start nginx
+
+    - name: Upload default index.html for host
+      copy: src=/home/osboxes/git-test/static_files/index.html dest=/var/www/html
+
+  handlers:
+    - name: start nginx
+      service: name=nginx state=started

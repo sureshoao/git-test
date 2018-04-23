@@ -1,0 +1,10 @@
+---
+- hosts: node
+  become: yes
+  become_user: root
+  tasks:
+  - name: create a folder
+    file:
+    path: /usr/share/tomcat8/.jenkins 
+    state: directory
+    mode: 0664
