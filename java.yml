@@ -2,17 +2,9 @@
 - hosts : node
   become: yes
   become_user: root
+  remote_user: root
 
 - name: Install Oracle Java
-  apt:
-    name: "{{ item }}"
-    state: present
-  with_items:
-    - "oracle-java{{ java_version }}-installer"
-    - "oracle-java{{ java_version }}-set-default"
-
-- name: Install Open Java
-  apt:
-    name: "openjdk-{{ java_version }}-jdk"
-    state: present
-  when: java_type == "Open"
+  action: apt=foo state=present update_cache=yes
+- apt:
+  upgrade: dist
